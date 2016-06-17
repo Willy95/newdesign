@@ -55,7 +55,117 @@
 			</center>
 		  </div>
 		  <div class="modal-body">
-			
+            <div class="row" style="padding-right:1%; padding-left:1%">
+              <form class="form-horizontal" id="frm-reg-hijos">
+                <div id="wizard">
+                  <h2>Datos generales</h2>
+                  <section>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <spna  class="fa fa-user"></spna>
+                        </span>
+                        <input type="text"  name="nombre" id="nombre" value="" class="form-control form-custom" placeholder="Nombre del niño/a">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <spna class="fa fa-chevron-right"></spna>
+                        </span>
+                        <input type="text" name="apellido_paterno" id="apellido_paterno" value="" class="form-control form-custom" placeholder="Apellido paterno">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <spna class="fa fa-chevron-right"></spna>
+                        </span>
+                        <input type="text" name="apellido_materno" id="apellido_materno" value="" class="form-control form-custom" placeholder="Apellido materno">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <spna class="fa fa-calendar"></spna>
+                        </span>
+                        <input type="text" name="fecha_nacimiento" id="fecha_nacimiento" value="" class="form-control datepicker_hijo" placeholder="Fecha de nacimiento">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sexo"><h4 class="title-input"><b>Sexo</b></h4></label>
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <span class="fa fa-venus-mars"></span>
+                          </span>
+                          <select class="form-control form-custom" name="sexo" id="sexo">
+                            <option value="m">Masculino</option>
+                            <option value="f">Femenino</option>
+                          </select>
+                        </div>
+                     </div>
+               </section>
+               <h2>Datos escolares</h2>
+               <section>
+                  <div class="form-group">
+                    <label for="sexo"><h4 class="title-input"><b>Nombre de la Escuela</b></h4></label>
+                    <div class="input-group">
+                      <span  class="input-group-addon tooltipShow">
+                        <spna id="return-fa-normal" class="fa fa-chevron-right"></spna>
+                        <span title="ver escuelas" style="color:blue; font-weight:bold"  id="return-select-school" class="fa fa-remove hidden"></span>
+                      </span>
+                      <select name="escuela_id" id="escuela_id"  class="form-control">
+                        @foreach(escuela::all()  as $escuela)
+                          <option value="{{$escuela->id}}">{{$escuela->nombre}}</option>
+                        @endforeach
+                        <option value="NULL">Otra</option>
+                      </select>
+                      <input type="text" nombre="esc_alt" id="esc_alt" placeholder="nombre de la escuela" value="" class="form-control hidden"/>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                    <label for="sexo"><h4 class="title-input"><b>Promedio escolar</b></h4></label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <spna class="fa fa-chevron-right"></spna>
+                      </span>
+                      <input type="text" name="promedio" id="promedio" value="" class="form-control" placeholder="Promedio de su hijo">
+                    </div>
+                 </div>
+               </section>
+               <h2>Datos de usuario</h2>
+               <section>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <spna  class="fa fa-user"></spna>
+                      </span>
+                      <input type="text"  name="username_hijo" id="username_hijo" value="" class="form-control form-custom" placeholder="Nombre de Usuario para el niño/a">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <spna class="fa fa-lock"></spna>
+                      </span>
+                      <input type="password" name="password" id="password" value="" class="form-control form-custom" placeholder="Contraseña">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <spna class="fa fa-lock"></spna>
+                      </span>
+                      <input type="password" name="cpassword" id="cpassword" value="" class="form-control form-custom" placeholder="Confirmar Contraseña">
+                    </div>
+                  </div>
+               </section>
+              </form>
+            </div>
 		  </div>
 		</div>
 	  </div>
@@ -108,4 +218,61 @@
 	@if(Auth::user()->hasRole('padre'))
 	  {{HTML::script("/packages/js/curiosity/perfilEstadisticas.js")}}
 	@endif
+	<script type="text/javascript">
+    $("#wizard").steps({
+        headerTag: "h2",
+        bodyTag: "section",
+        transitionEffect: "slideLeft",
+        autoFocus:true,
+        next:"Siguiente",
+        finish:"Finalizar",
+        previous:"Anterior",
+        onFinishing: function (event, currentIndex) {
+            if($("#frm-reg-hijos").valid()){
+                return true;
+            }else{
+                return false;
+            }
+        },
+        labels: {
+          cancel: "Cancelar",
+          //  current: "current step:",
+          pagination: "Paginación",
+          finish: "Finalizar",
+          next: "Siguiente",
+          previous: "Anterior",
+          loading: "Cargando ..."
+        },
+        onStepChanging: function (event, currentIndex, newIndex){
+          if(newIndex>currentIndex){
+           if($(".current input").valid()){
+               return true;
+           }else return false;
+         }else return true;
+        },
+
+  });
+  @if(!Auth::User()->hasRole('hijo'))
+   var dateNow = new Date();
+    dateNow.setMonth(dateNow.getMonth()-216);//restar 19 años a la fecha actual
+    $('.datepicker').datepicker({
+        "language":"es",
+        "format" : "yyyy-mm-dd",
+        "endDate":dateNow.getFullYear()+"/"+dateNow.getMonth()+"/"+dateNow.getDate(),
+       "autoclose": true,
+       "todayHighlight" : true
+      });
+    @else
+    var dateNow = new Date();
+    dateNow.setMonth(dateNow.getMonth()-48);//restar 19 años a la fecha actual
+    $('.datepicker').datepicker({
+        "language":"es",
+        "format" : "yyyy-mm-dd",
+        "endDate":dateNow.getFullYear()+"/"+dateNow.getMonth()+"/"+dateNow.getDate(),
+       "autoclose": true,
+       "todayHighlight" : true
+      });
+  @endif
+
+    </script>
 @stop

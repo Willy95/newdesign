@@ -464,47 +464,6 @@ Inicio
                   </div><!-- /.tab-pane -->
 
                      <div class="tab-pane"  id="reg-hijos">
-                    <!-- Registro de hijos -->
-                       <!-- <div class="row">
-                          <div class="col-md-12 first-part">
-                            <h3>¿Cuántos hijos deseas registrar?<h3>
-                            <ul class="list-hijos">
-                              <li class="active">
-                                <div class="user-block">
-                                   <h1 class="num num1">1</h1>
-                                </div>
-                              </li>
-                               <li class="">
-                                <div class="user-block">
-                                  <h1 class="num num2">2</h1>
-                                </div>
-                              </li>
-                               <li class="">
-                                <div class="user-block">
-                                   <h1 class="num num3">3</h1>
-                                </div>
-                              </li>
-                               <li class="">
-                                <div class="user-block">
-                                   <h1 class="num num4">4</h1>
-                                </div>
-                              </li>
-                               <li class="e">
-                                <div class="user-block">
-                                   <h1 class="num num5">5</h1>
-                                </div>
-                              </li>
-                               <li class="">
-                                <div class="user-block">
-                                   <h1 class="num num6">6</h1>
-                                </div>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="row" style="padding-right:10%;">
-                          <button class="btn btn-info btn-lg pull-right btn-next">Siguiente</button>
-                        </div>-->
                         <div class="row" style="padding-right:1%; padding-left:1%">
                           <form class="form-horizontal" id="frm-reg-hijos">
                             <div id="wizard">
